@@ -1,0 +1,57 @@
+define("@wsb/guac-widget-shared/c/dynamicFontScaler-31729aff.js", ['exports'], (function (exports) { 'use strict';
+
+  const scalerStyle = {
+    wordWrap: 'normal !important',
+    overflowWrap: 'normal !important',
+    display: 'none',
+    visibility: 'hidden',
+    position: 'absolute',
+    width: 'auto',
+    overflow: 'visible',
+    left: 0
+  };
+  function dynamicFontScaler({
+    text,
+    containerId,
+    font,
+    fontSizes,
+    style,
+    Tag = (global.Core || guac["@wsb/guac-widget-core"]).UX2.Element.Element,
+    typography,
+    targetId,
+    maxLines = 3,
+    prioritizeDefault
+  }) {
+    const scriptProps = {
+      containerId,
+      targetId,
+      fontSizes,
+      maxLines,
+      prioritizeDefault
+    };
+    const element = /*#__PURE__*/(global.React || guac.react).createElement((global.React || guac.react).Fragment, null, fontSizes.map(size => /*#__PURE__*/(global.React || guac.react).createElement(Tag, {
+      tag: "span",
+      key: size,
+      font: font,
+      style: {
+        ...style,
+        ...scalerStyle,
+        fontSize: size
+      },
+      "data-size": size,
+      "data-scaler-id": `scaler-${containerId}`,
+      typography: typography,
+      "data-ux": "scaler",
+      "aria-hidden": true
+    }, text)));
+    return {
+      element,
+      scriptProps,
+      callback: () => window.wsb.DynamicFontScaler(scriptProps)
+    };
+  }
+
+  exports.d = dynamicFontScaler;
+
+}));
+if (typeof window !== 'undefined') window.global = window;

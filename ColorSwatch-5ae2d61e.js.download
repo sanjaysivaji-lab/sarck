@@ -1,0 +1,54 @@
+define("@wsb/guac-widget-shared/lib/components/ColorSwatch-5ae2d61e.js", ['exports'], (function (exports) { 'use strict';
+
+  const ColorSwatch = ({
+    color,
+    isActive,
+    inStock,
+    isSmall
+  }) => {
+    const showInStock = inStock || typeof inStock === 'undefined';
+    const sizeOuter = isSmall ? '24px' : '38px';
+    const sizeInner = isSmall ? '20px' : '32px';
+    const commonStyles = {
+      borderRadius: '50%',
+      borderWidth: '1px',
+      borderStyle: 'solid'
+    };
+    const styles = {
+      outer: {
+        ...commonStyles,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: sizeOuter,
+        height: sizeOuter,
+        borderColor: isActive ? 'lowContrast' : 'transparent'
+      },
+      inner: {
+        ...commonStyles,
+        borderColor: 'ultraLowContrast',
+        color: 'ultraLowContrast',
+        width: sizeInner,
+        height: sizeInner,
+        background: showInStock ? color : `linear-gradient(to left top, ${color} calc(50% - 1px), currentColor, ${color} calc(50% + 1px) )`
+      }
+    };
+    return /*#__PURE__*/(global.React || guac.react).createElement((global.Core || guac["@wsb/guac-widget-core"]).UX2.Element.Block, {
+      style: styles.outer
+    }, /*#__PURE__*/(global.React || guac.react).createElement((global.Core || guac["@wsb/guac-widget-core"]).UX2.Element.Block, {
+      style: styles.inner
+    }));
+  };
+  ColorSwatch.propTypes = {
+    color: (global.PropTypes || guac["prop-types"]).string.isRequired,
+    isActive: (global.PropTypes || guac["prop-types"]).bool,
+    inStock: (global.PropTypes || guac["prop-types"]).bool,
+    isSmall: (global.PropTypes || guac["prop-types"]).bool
+  };
+
+  exports["default"] = ColorSwatch;
+
+  Object.defineProperty(exports, '__esModule', { value: true });
+
+}));
+if (typeof window !== 'undefined') window.global = window;
