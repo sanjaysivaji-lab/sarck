@@ -1,0 +1,844 @@
+define("@wsb/guac-widget-shared/c/Mutator-ee060270.js", ['exports', "~/c/_rollupPluginBabelHelpers"], (function (exports, _rollupPluginBabelHelpers) { 'use strict';
+
+  const ALIGNMENT = 'alignmentOption';
+  const TITLE = 'sectionTitle';
+  const IMAGE$2 = 'imageData';
+  const LINK = 'externalLink';
+  const CARDS = 'cards';
+  const CARDS_HEADLINE = `${CARDS}.headline`;
+  const CARDS_DESC = `${CARDS}.description`;
+  const CARDS_CTA = `${CARDS}.ctaButton`;
+  const CARDS_MEDIA_TYPE = `${CARDS}.mediaType`;
+  const CARDS_IMAGE = `${CARDS}.imageProperties`;
+  const CARDS_VIDEO_CONTROL = `${CARDS}.videoControl`;
+  const CARDS_IMAGE_DATA = `${CARDS_IMAGE}.${IMAGE$2}`;
+  const CARDS_IMAGE_LINK = `${CARDS_IMAGE}.${LINK}`;
+  const RENDER_MODE = 'renderMode';
+  const IS_INTERNAL = 'isInternalPage';
+  const INTERNAL_LINKS = 'internalLinks';
+  const ENABLE_INLINE_IMAGE = 'enableInlineImageEdit';
+  const ENABLE_IMAGE_DIMENSION = 'enableImageDimension';
+  const CARDS_REMIX_BUTTON = 'cardsRemixButton';
+  const CARDS_REMIX_CONTENT = 'cardsRemixContent';
+  const SECTION_TITLE_REMIX = 'sectionTitleRemix';
+
+  var widgetKeys = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    ALIGNMENT: ALIGNMENT,
+    TITLE: TITLE,
+    IMAGE: IMAGE$2,
+    LINK: LINK,
+    CARDS: CARDS,
+    CARDS_HEADLINE: CARDS_HEADLINE,
+    CARDS_DESC: CARDS_DESC,
+    CARDS_CTA: CARDS_CTA,
+    CARDS_MEDIA_TYPE: CARDS_MEDIA_TYPE,
+    CARDS_IMAGE: CARDS_IMAGE,
+    CARDS_VIDEO_CONTROL: CARDS_VIDEO_CONTROL,
+    CARDS_IMAGE_DATA: CARDS_IMAGE_DATA,
+    CARDS_IMAGE_LINK: CARDS_IMAGE_LINK,
+    RENDER_MODE: RENDER_MODE,
+    IS_INTERNAL: IS_INTERNAL,
+    INTERNAL_LINKS: INTERNAL_LINKS,
+    ENABLE_INLINE_IMAGE: ENABLE_INLINE_IMAGE,
+    ENABLE_IMAGE_DIMENSION: ENABLE_IMAGE_DIMENSION,
+    CARDS_REMIX_BUTTON: CARDS_REMIX_BUTTON,
+    CARDS_REMIX_CONTENT: CARDS_REMIX_CONTENT,
+    SECTION_TITLE_REMIX: SECTION_TITLE_REMIX
+  });
+
+  const {
+    PropTypes: PropTypes$1
+  } = (global.Core || guac["@wsb/guac-widget-core"]).Maniless;
+  const alignmentOption$1 = PropTypes$1.Alignment;
+  const sectionTitle$1 = PropTypes$1.Text.maxCount(60);
+  const imageData$1 = PropTypes$1.Image;
+  const externalLink$1 = PropTypes$1.ToggleableLink;
+  const cards$1 = PropTypes$1.arrayOf(PropTypes$1.shape({
+    id: PropTypes$1.string.readOnly,
+    headline: PropTypes$1.Text,
+    description: PropTypes$1.RichText,
+    ctaButton: PropTypes$1.CTAButton.maxCount(50),
+    imageProperties: PropTypes$1.shape({
+      imageData: PropTypes$1.Image,
+      externalLink: PropTypes$1.ToggleableLink
+    }),
+    mediaType: PropTypes$1.Tabs,
+    videoControl: PropTypes$1.VideoControl
+  })).kind('OrderableArray').maxCount(12);
+  const renderMode$1 = PropTypes$1.string.readOnly;
+  const isInternalPage$1 = PropTypes$1.bool.readOnly;
+  const internalLinks$1 = PropTypes$1.object.readOnly;
+  const enableInlineImageEdit$2 = PropTypes$1.bool.readOnly;
+  const enableImageDimension$2 = PropTypes$1.bool.readOnly;
+  const remixButton = PropTypes$1.any.kind('RemixButton');
+  const cardsRemixButton = PropTypes$1.any.kind('RemixButton');
+  const cardsRemixContent = PropTypes$1.any.kind('RemixContent');
+  const remixContent = PropTypes$1.any.kind('RemixContent');
+
+  var propTypes = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    alignmentOption: alignmentOption$1,
+    sectionTitle: sectionTitle$1,
+    imageData: imageData$1,
+    externalLink: externalLink$1,
+    cards: cards$1,
+    renderMode: renderMode$1,
+    isInternalPage: isInternalPage$1,
+    internalLinks: internalLinks$1,
+    enableInlineImageEdit: enableInlineImageEdit$2,
+    enableImageDimension: enableImageDimension$2,
+    remixButton: remixButton,
+    cardsRemixButton: cardsRemixButton,
+    cardsRemixContent: cardsRemixContent,
+    remixContent: remixContent
+  });
+
+  const IMAGE$1 = 'image';
+  const VIDEO = 'video';
+
+  const {
+    selectors: {
+      I18N: I18N$1,
+      StockPhotos,
+      Navigation,
+      Config: Config$1,
+      Page,
+      Widget: Widget$1,
+      utils: {
+        createSelector: createSelector$1
+      }
+    }
+  } = (global.Core || guac["@wsb/guac-widget-core"]).Maniless;
+  const videoControlDefaults = {
+    videoType: 'embed',
+    videoEmbed: {
+      embedUrl: '//youtube.com/embed/6eXyTL8-2_A?rel=0&showinfo=0',
+      rawUrl: 'https://www.youtube.com/watch?v=6eXyTL8-2_A'
+    },
+    videoUpload: {
+      video: '//categories.api.godaddy.com/v4/videos/raw/video/uwDbg0XbBZTOx8GWL'
+    }
+  };
+  const getCards = (number, {
+    headline,
+    description,
+    ctaButton,
+    imageProperties,
+    mediaType
+  } = {}) => {
+    return (global._ || guac.lodash).range(1, number + 1).map(index => ({
+      id: (global.Core || guac["@wsb/guac-widget-core"]).utils.uuid(),
+      headline: headline || I18N$1.get(`defaultHeadline${index}`),
+      description: description || I18N$1.get(`defaultDescription${index}`),
+      ctaButton: {
+        enabled: false,
+        label: I18N$1.get(`defaultCtaLearnMore${index}`) || I18N$1.get('defaultCtaLearnMore'),
+        pageId: Page.id,
+        ...ctaButton
+      },
+      mediaType: mediaType || IMAGE$1,
+      imageProperties: {
+        imageData: {
+          image: StockPhotos.index(index)
+        },
+        externalLink: {},
+        ...imageProperties
+      },
+      videoControl: videoControlDefaults
+    }));
+  };
+  const alignmentOption = Widget$1.layoutProp('alignmentOption');
+  const sectionTitle = I18N$1.get('defaultSectionTitle');
+  const imageData = {
+    image: StockPhotos.index(0)
+  };
+  const externalLink = {};
+  const cards = getCards(3);
+  const cardsVariant1 = getCards(3, {
+    ctaButton: {
+      enabled: true
+    }
+  });
+  const renderMode = Config$1.renderMode;
+  const isInternalPage = Page.isInternal;
+  const internalLinks = Navigation.links;
+  const enableInlineImageEdit$1 = createSelector$1(Config$1.flag('inlineImageEditLayouts'), Widget$1.preset, (inlineImageEditLayouts, preset) => inlineImageEditLayouts?.includes(preset));
+  const enableImageDimension$1 = createSelector$1(Config$1.flag('imageDimensionLayouts'), Widget$1.preset, (imageDimensionLayouts, preset) => imageDimensionLayouts?.includes(preset));
+
+  var defaultProps$1 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    getCards: getCards,
+    alignmentOption: alignmentOption,
+    sectionTitle: sectionTitle,
+    imageData: imageData,
+    externalLink: externalLink,
+    cards: cards,
+    cardsVariant1: cardsVariant1,
+    renderMode: renderMode,
+    isInternalPage: isInternalPage,
+    internalLinks: internalLinks,
+    enableInlineImageEdit: enableInlineImageEdit$1,
+    enableImageDimension: enableImageDimension$1
+  });
+
+  var _Class2;
+  const props = [ALIGNMENT, CARDS_REMIX_BUTTON, CARDS_REMIX_CONTENT, TITLE, CARDS, RENDER_MODE, IS_INTERNAL, INTERNAL_LINKS, ENABLE_INLINE_IMAGE, ENABLE_IMAGE_DIMENSION];
+  const getWidgetWithOverrides = overrides => {
+    var _Class;
+    const cardCount = overrides && overrides.cardCount || 3;
+    const overriddenCards = {
+      cards: getCards(cardCount, overrides)
+    };
+    return _Class = class extends (global.Core || guac["@wsb/guac-widget-core"]).Maniless.Widget {}, _rollupPluginBabelHelpers.a(_Class, "propTypes", {
+      ...(global.Core || guac["@wsb/guac-widget-core"]).Maniless.Widget.propTypes,
+      ...(global._ || guac.lodash).pick(propTypes, props)
+    }), _rollupPluginBabelHelpers.a(_Class, "defaultProps", {
+      ...(global.Core || guac["@wsb/guac-widget-core"]).Maniless.Widget.defaultProps,
+      ...(global._ || guac.lodash).pick(defaultProps$1, props),
+      ...overriddenCards
+    }), _Class;
+  };
+  (_Class2 = class Widget extends (global.Core || guac["@wsb/guac-widget-core"]).Maniless.Widget {}, _rollupPluginBabelHelpers.a(_Class2, "propTypes", {
+    ...(global.Core || guac["@wsb/guac-widget-core"]).Maniless.Widget.propTypes,
+    ...(global._ || guac.lodash).pick(propTypes, props)
+  }), _rollupPluginBabelHelpers.a(_Class2, "defaultProps", {
+    ...(global.Core || guac["@wsb/guac-widget-core"]).Maniless.Widget.defaultProps,
+    ...(global._ || guac.lodash).pick(defaultProps$1, props)
+  }), _Class2);
+
+  /* eslint-disable id-length */
+
+  const getDataAids = (prefix = '') => (global.keyMirror || guac.keymirror)({
+    [`${prefix}_SECTION_TITLE_RENDERED`]: null,
+    [`${prefix}_HEADLINE_RENDERED`]: null,
+    [`${prefix}_DESCRIPTION_RENDERED`]: null,
+    [`${prefix}_IMAGE_RENDERED`]: null,
+    [`${prefix}_VIDEO_RENDERED`]: null,
+    [`${prefix}_SHARE_GROUP`]: null,
+    [`${prefix}_SHARE_ICON_REND_FACEBOOK`]: null,
+    [`${prefix}_SHARE_ICON_REND_TWITTER`]: null,
+    [`${prefix}_SHARE_ICON_REND_GOOGLEPLUS`]: null,
+    [`${prefix}_SHARE_ICON_REND_LINKEDIN`]: null,
+    [`${prefix}_CTA_BTN_RENDERED`]: null
+  });
+
+  const {
+    constants: {
+      routes: routes$1
+    }
+  } = (global.Core || guac["@wsb/guac-widget-core"]).Maniless;
+  const BASE = routes$1.BASE;
+  const IMAGE = '/image';
+  const CARD = '/card/$';
+  const CARD_IMAGE = '/card/$/image';
+  const CARD_VIDEO = '/card/$/video';
+  const CARD_CTA = '/card/$/cta';
+  const ROOT_REMIX = `/suggestions`;
+  const CARDS_REMIX = `${CARD}${ROOT_REMIX}`;
+
+  var routePaths = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    BASE: BASE,
+    IMAGE: IMAGE,
+    CARD: CARD,
+    CARD_IMAGE: CARD_IMAGE,
+    CARD_VIDEO: CARD_VIDEO,
+    CARD_CTA: CARD_CTA,
+    ROOT_REMIX: ROOT_REMIX,
+    CARDS_REMIX: CARDS_REMIX
+  });
+
+  const {
+    getSelectedVideoProps
+  } = (global.Core || guac["@wsb/guac-widget-core"]).utils;
+  const {
+    utils: {
+      getRoute
+    }
+  } = (global.Core || guac["@wsb/guac-widget-core"]).Maniless;
+  function getMediaType(card = {}) {
+    return card.mediaType || IMAGE$1;
+  }
+  function hasImage(card = {}, {
+    videoAllowed = false
+  } = {}) {
+    const {
+      imageProperties = {}
+    } = card;
+    const {
+      imageData = {}
+    } = imageProperties;
+    const hasImg = !!imageData.image;
+    if (!videoAllowed) {
+      return hasImg;
+    }
+    return getMediaType(card) === IMAGE$1 && hasImg;
+  }
+  function hasVideo(card = {}, {
+    videoAllowed = false
+  } = {}) {
+    const hasSelectedVideo = !!getSelectedVideoProps(card.videoControl).url;
+    const mediaType = getMediaType(card);
+    return mediaType === VIDEO && videoAllowed && hasSelectedVideo;
+  }
+  function isCardNotEmpty(card, {
+    videoAllowed
+  }) {
+    return card && (card.headline || card.description || card.ctaButton && card.ctaButton.enabled && card.ctaButton.label || hasImage(card, {
+      videoAllowed
+    }) || hasVideo(card, {
+      videoAllowed
+    }));
+  }
+  function cardToProps(card = {}, {
+    extraProps = {},
+    alignmentOption: alignment,
+    imageConfig = {},
+    hideMedia = false,
+    videoAllowed,
+    enableImageDimension
+  }) {
+    const {
+      imageProperties = {},
+      description,
+      headline,
+      ctaButton = {},
+      videoControl = {}
+    } = card;
+    const {
+      label,
+      enabled: hasCtaButton,
+      ...action
+    } = ctaButton;
+    const {
+      externalLink,
+      imageData = {}
+    } = imageProperties;
+    const {
+      alt,
+      overlayAlpha
+    } = imageData;
+    const hasImageData = imageConfig && hasImage(card, {
+      videoAllowed
+    });
+    const hasVideoData = hasVideo(card, {
+      videoAllowed
+    });
+    const {
+      heightPx: outputHeight,
+      widthPx: outputWidth
+    } = imageConfig;
+    return {
+      heading: headline && (global._ || guac.lodash).merge(typeof headline === 'string' ? {
+        children: headline
+      } : headline, extraProps.heading),
+      text: description && (global._ || guac.lodash).merge(typeof description === 'string' ? {
+        richtext: true,
+        children: description
+      } : description, extraProps.text),
+      image: !hideMedia && hasImageData && (global._ || guac.lodash).merge({
+        alt: alt,
+        link: externalLink,
+        style: {
+          order: -1,
+          zIndex: 1 // Firefox fix to open mutator
+        },
+        overlayAlpha,
+        imageData: {
+          ...imageData,
+          outputHeight,
+          outputWidth,
+          enableImageDimension
+        }
+      }, extraProps.image),
+      video: !hideMedia && hasVideoData && (global._ || guac.lodash).merge({
+        style: {
+          order: -1,
+          zIndex: 1 // Firefox fix to open mutator
+        }
+      }, videoControl, extraProps.video),
+      action: hasCtaButton && (global._ || guac.lodash).merge({
+        link: action,
+        children: label
+      }, extraProps.action),
+      alignment
+    };
+  }
+  function cardsToProps(cards, {
+    alignmentOption,
+    imageConfig,
+    extraProps,
+    hideMedia,
+    videoAllowed = false,
+    dataAidPrefix,
+    enableInlineImageEdit,
+    enableImageDimension
+  }) {
+    const dataAids = getDataAids(dataAidPrefix);
+    return cards.map((card, index) => ({
+      index,
+      ...card
+    })).filter(card => isCardNotEmpty(card, {
+      videoAllowed
+    })).map(({
+      index,
+      id,
+      ...card
+    }, idx, arr) => {
+      const extraPropsExt = (global._ || guac.lodash).merge({
+        heading: {
+          'data-aid': `${dataAids[`${dataAidPrefix}_HEADLINE_RENDERED`]}${index}`,
+          'data-field-id': CARDS_HEADLINE,
+          'data-field-route': getRoute(CARD, [index])
+        },
+        text: {
+          'data-aid': `${dataAids[`${dataAidPrefix}_DESCRIPTION_RENDERED`]}${index}`,
+          'data-field-id': CARDS_DESC,
+          'data-field-route': getRoute(CARD, [index])
+        },
+        image: {
+          enableInlineImageEdit,
+          'data-aid': `${dataAids[`${dataAidPrefix}_IMAGE_RENDERED`]}${index}`,
+          'data-field-id': enableInlineImageEdit ? CARDS_IMAGE_DATA : CARDS_IMAGE,
+          'data-field-route': getRoute(CARD_IMAGE, [index])
+        },
+        video: {
+          'data-aid': `${dataAids[`${dataAidPrefix}_VIDEO_RENDERED`]}${index}`,
+          'data-field-id': CARDS_VIDEO_CONTROL,
+          'data-field-route': getRoute(CARD_VIDEO, [index])
+        },
+        action: {
+          'data-aid': `${dataAids[`${dataAidPrefix}_CTA_BTN_RENDERED`]}${index}`,
+          'data-field-id': CARDS_CTA,
+          'data-field-route': getRoute(CARD_CTA, [index])
+        }
+      }, extraProps);
+      return {
+        ...cardToProps(card, {
+          alignmentOption,
+          extraProps: extraPropsExt,
+          imageConfig: typeof imageConfig === 'function' ? imageConfig(index, arr.length) : imageConfig,
+          hideMedia,
+          videoAllowed,
+          enableImageDimension
+        }),
+        'data-field-id': CARDS,
+        'data-field-route': getRoute(CARD, [index]),
+        'index': index,
+        'id': id
+      };
+    });
+  }
+
+  class SectionHeading extends (global.React || guac.react).Component {
+    render() {
+      const {
+        isInternalPage,
+        layout,
+        order,
+        sectionTitle,
+        dataAidPrefix,
+        style,
+        alignmentOption
+      } = this.props;
+      const dataAids = getDataAids(dataAidPrefix);
+      return /*#__PURE__*/(global.React || guac.react).createElement((global.Core || guac["@wsb/guac-widget-core"]).UX2.Element.Heading, {
+        "data-aid": dataAids[`${dataAidPrefix}_SECTION_TITLE_RENDERED`],
+        "data-route": TITLE,
+        layout: layout,
+        style: style,
+        order: order,
+        isInternalPage: isInternalPage,
+        alignmentOption: alignmentOption
+      }, sectionTitle);
+    }
+  }
+  SectionHeading.propTypes = {
+    isInternalPage: (global.PropTypes || guac["prop-types"]).bool,
+    layout: (global.PropTypes || guac["prop-types"]).string,
+    order: (global.PropTypes || guac["prop-types"]).number,
+    sectionTitle: (global.PropTypes || guac["prop-types"]).string,
+    style: (global.PropTypes || guac["prop-types"]).object,
+    alignmentOption: (global.PropTypes || guac["prop-types"]).string,
+    dataAidPrefix: (global.PropTypes || guac["prop-types"]).string
+  };
+
+  class CommonLayout extends (global.React || guac.react).Component {
+    render() {
+      const {
+        category,
+        children,
+        isInternalPage,
+        order,
+        section,
+        sectionTitle,
+        dataAidPrefix
+      } = this.props;
+      return /*#__PURE__*/(global.React || guac.react).createElement((global.Core || guac["@wsb/guac-widget-core"]).UX2.Component.Widget, this.props, /*#__PURE__*/(global.React || guac.react).createElement((global.Core || guac["@wsb/guac-widget-core"]).UX2.Group.Section, {
+        category: category,
+        section: section
+      }, /*#__PURE__*/(global.React || guac.react).createElement((global.Core || guac["@wsb/guac-widget-core"]).UX2.Element.Container, null, sectionTitle && /*#__PURE__*/(global.React || guac.react).createElement(SectionHeading, {
+        isInternalPage: isInternalPage,
+        order: order,
+        sectionTitle: sectionTitle,
+        dataAidPrefix: dataAidPrefix
+      }), children)));
+    }
+  }
+  CommonLayout.propTypes = {
+    category: (global.PropTypes || guac["prop-types"]).string,
+    children: (global.PropTypes || guac["prop-types"]).any,
+    isInternalPage: (global.PropTypes || guac["prop-types"]).bool,
+    order: (global.PropTypes || guac["prop-types"]).number,
+    section: (global.PropTypes || guac["prop-types"]).string,
+    sectionTitle: (global.PropTypes || guac["prop-types"]).string,
+    dataAidPrefix: (global.PropTypes || guac["prop-types"]).string
+  };
+  CommonLayout.defaultProps = {
+    section: 'default',
+    category: 'neutral'
+  };
+
+  var config = {
+    cards: {
+      common: {
+        widthPx: 600,
+        heightPx: 300,
+        widthPxAtZeroPosition: 1240,
+        heightPxAtZeroPosition: 620
+      }
+    }
+  };
+
+  const MEDIA_PIVOT = 'imageDataPivot';
+  const CARD_MEDIA_PIVOT = 'cardMediaPivot';
+  const CARD_CTA_PIVOT = 'cardCTAPivot';
+  const CARD_DELETE = 'cardDeleteButton';
+  const DELETE = 'sectionDeleteButton';
+  const ROOT_REMIX_BUTTON = 'rootRemixButton';
+
+  const {
+    PropTypes
+  } = (global.Core || guac["@wsb/guac-widget-core"]).Maniless;
+  const imageDataPivot = PropTypes.Pivot;
+  const cardMediaPivot = PropTypes.Pivot;
+  const cardCTAPivot = PropTypes.Pivot;
+  const rootRemixButton = PropTypes.any.kind('RemixButton');
+  const sectionTitleRemix = PropTypes.any.kind('RemixContent');
+  const cardDeleteButton = PropTypes.DeleteButton;
+  const sectionDeleteButton = PropTypes.DeleteButton;
+
+  var mutatorFields = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    imageDataPivot: imageDataPivot,
+    cardMediaPivot: cardMediaPivot,
+    cardCTAPivot: cardCTAPivot,
+    rootRemixButton: rootRemixButton,
+    sectionTitleRemix: sectionTitleRemix,
+    cardDeleteButton: cardDeleteButton,
+    sectionDeleteButton: sectionDeleteButton
+  });
+
+  const {
+    selectors: {
+      I18N,
+      Config,
+      Widget,
+      utils: {
+        createSelector,
+        not
+      }
+    }
+  } = (global.Core || guac["@wsb/guac-widget-core"]).Maniless;
+  const {
+    draft: {
+      getPlainText
+    }
+  } = (global.Core || guac["@wsb/guac-widget-core"]).utils;
+  const videoEnabled = Config.flag('enableAboutVideo');
+  const mediaLayouts = ['about2', 'about3', 'about5', 'about7', 'about8', 'about9', 'video3', 'video4', 'video5'];
+  function getMediaPivotRoute(props, {
+    imageKey,
+    mediaTypeKey,
+    imgRoute,
+    videoRoute
+  }) {
+    const mediaType = props.getFieldValue(mediaTypeKey);
+    const image = props.getFieldValue(imageKey);
+    const preset = props.getFieldValue('preset');
+    const isImageType = mediaType === IMAGE$1 || (global._ || guac.lodash).isNil(mediaType) || !mediaLayouts.includes(preset);
+    const route = isImageType ? imgRoute : videoRoute;
+    return {
+      to: props.getRoute(route),
+      graphic: isImageType && image && image.image ? /*#__PURE__*/(global.React || guac.react).createElement("img", {
+        src: image.image,
+        alt: image.alt || '',
+        className: "mx-pivot-icon"
+      }) : void 0
+    };
+  }
+  const getMediaTypeDefaults = ({
+    imgRoute,
+    videoRoute
+  }) => ({
+    options: [{
+      label: I18N.get('image'),
+      value: IMAGE$1,
+      to: imgRoute
+    }, {
+      label: I18N.get('VIDEO'),
+      value: VIDEO,
+      to: videoRoute
+    }],
+    defaultSelected: I18N.get('image'),
+    hidden: not(videoEnabled)
+  });
+  const enableInlineImageEdit = createSelector(Config.flag('inlineImageEditLayouts'), Config.isMobile, Widget.preset, (inlineImageEditLayouts, isMobile, preset) => !isMobile && inlineImageEditLayouts?.includes(preset));
+  const enableImageDimension = createSelector(Config.flag('imageDimensionLayouts'), Widget.preset, (imageDimensionLayouts, preset) => imageDimensionLayouts?.includes(preset));
+  var defaultProps = {
+    // ROUTES
+    [CARD]: {
+      label: createSelector(I18N.get('titleForAboutCard'), I18N.get('titleForCardGroup'), (key1, key2) => key1 !== 'titleForAboutCard' ? key1 : key2)
+    },
+    [CARD_VIDEO]: {
+      label: I18N.get('media')
+    },
+    [IMAGE]: {
+      label: I18N.get('titleForBackgroundImage')
+    },
+    [CARD_CTA]: {
+      label: createSelector(I18N.get('titleForAboutActionButtonV2'), I18N.get('titleForActionButton'), (key1, key2) => key1 !== 'titleForAboutActionButtonV2' ? key1 : key2)
+    },
+    [CARD_IMAGE]: {
+      label: createSelector(I18N.get('titleForAboutCardImage'), I18N.get('titleForCardImage'), (key1, key2) => key1 !== 'titleForAboutCardImage' ? key1 : key2)
+    },
+    // PROPS
+    [ALIGNMENT]: {
+      value: 'center'
+    },
+    [TITLE]: {
+      label: I18N.get('titleForSectionTitleProp')
+    },
+    [CARDS]: {
+      to: CARD,
+      label: createSelector(I18N.get('titleForAboutCard'), I18N.get('titleForCardGroup'), (key1, key2) => key1 !== 'titleForAboutCard' ? key1 : key2),
+      getProps(props) {
+        return {
+          items: props.value.map(item => ({
+            label: item.headline,
+            description: getPlainText(item.description)
+          }))
+        };
+      }
+    },
+    [IMAGE$2]: {
+      forceFill: true,
+      showAltTagInput: true,
+      addOrReplaceImage: true,
+      showRemoveButton: true,
+      enableFocalSelector: true,
+      enableInlineImageEdit,
+      enableImageDimension
+    },
+    [LINK]: {
+      getProps(props) {
+        const image = props.getFieldValue(IMAGE$2);
+        return {
+          hidden: !image || !image.image
+        };
+      }
+    },
+    [CARDS_HEADLINE]: {
+      label: createSelector(I18N.get('titleForAboutCardHeadline'), I18N.get('titleForCardHeadline'), (key1, key2) => key1 !== 'titleForAboutCardHeadline' ? key1 : key2)
+    },
+    [CARDS_DESC]: {
+      label: createSelector(I18N.get('titleForAboutCardDescription'), I18N.get('titleForCardDescription'), (key1, key2) => key1 !== 'titleForAboutCardDescription' ? key1 : key2)
+    },
+    [CARDS_CTA]: {
+      label: createSelector(I18N.get('titleForAboutCardDescription'), I18N.get('titleForActionButtonField'), (key1, key2) => key1 !== 'titleForAboutCardDescription' ? key1 : key2),
+      buttonLabelLink: (global.Core || guac["@wsb/guac-widget-core"]).Maniless.constants.routes.EDIT_THEME_BUTTONS_SECONDARY,
+      buttonLabelLinkText: I18N.get('editThemeStyles')
+    },
+    [CARDS_MEDIA_TYPE]: getMediaTypeDefaults({
+      imgRoute: CARD_IMAGE,
+      videoRoute: CARD_VIDEO
+    }),
+    [CARDS_VIDEO_CONTROL]: {
+      defaultValue: 'embed',
+      embedVideoProps: {
+        label: I18N.get('titleForVideoUrlProp'),
+        description: I18N.get('descriptionForVideoUrlProp'),
+        enableWarning: false
+      }
+    },
+    [CARDS_IMAGE_DATA]: {
+      forceFill: false,
+      showAltTagInput: true,
+      addOrReplaceImage: true,
+      showRemoveButton: true,
+      enableFocalSelector: false,
+      showOverlayOpacityControls: false,
+      enableInlineImageEdit,
+      enableImageDimension
+    },
+    [CARDS_IMAGE_LINK]: {
+      getProps(props) {
+        const image = props.getFieldValue(CARDS_IMAGE_DATA);
+        return {
+          hidden: !image || !image.image
+        };
+      }
+    },
+    // FIELDS
+    [MEDIA_PIVOT]: {
+      label: I18N.get('image'),
+      getProps(props) {
+        const image = props.getFieldValue(IMAGE$2);
+        return {
+          to: props.getRoute(IMAGE),
+          graphic: image && image.image ? /*#__PURE__*/(global.React || guac.react).createElement("img", {
+            src: image.image,
+            alt: image.alt || '',
+            className: "mx-pivot-icon"
+          }) : void 0
+        };
+      }
+    },
+    [CARD_MEDIA_PIVOT]: {
+      label: createSelector(Widget.preset, I18N.get('media'), I18N.get('image'), videoEnabled, (preset, mediaLabel, imageLabel, isVideoEnabled) => mediaLayouts.includes(preset) && isVideoEnabled ? mediaLabel : imageLabel),
+      getProps(props) {
+        return getMediaPivotRoute(props, {
+          imageKey: CARDS_IMAGE_DATA,
+          mediaTypeKey: CARDS_MEDIA_TYPE,
+          imgRoute: CARD_IMAGE,
+          videoRoute: CARD_VIDEO
+        });
+      }
+    },
+    [CARD_CTA_PIVOT]: {
+      label: createSelector(I18N.get('titleForAboutActionButtonV2'), I18N.get('titleForActionButton'), (key1, key2) => key1 !== 'titleForAboutActionButtonV2' ? key1 : key2),
+      getProps(props) {
+        return {
+          to: props.getRoute(CARD_CTA)
+        };
+      }
+    },
+    [CARD_DELETE]: {
+      to: BASE,
+      field: CARDS,
+      confirm: true,
+      atIndex: true,
+      label: I18N.get('deleteGroup'),
+      confirmTitle: I18N.get('deleteCardModalTitle'),
+      confirmDescription: I18N.get('deleteCardModalText')
+    },
+    [DELETE]: {
+      label: I18N.get('deleteSectionButton')
+    },
+    [CARDS_REMIX_BUTTON]: {
+      style: {
+        marginTop: '10px'
+      },
+      getProps(props) {
+        return {
+          link: props.getRoute(CARDS_REMIX)
+        };
+      }
+    },
+    [CARDS_REMIX_CONTENT]: {
+      getProps(props) {
+        return {
+          to: props.getRoute(CARD),
+          targetedFields: [{
+            id: 'cards.headline'
+          }, {
+            id: 'cards.description'
+          }, {
+            id: 'cards.ctaButton.label',
+            kind: props.getField('cards.ctaButton')?.kind || 'CTAButton',
+            isEnabled: props.getFieldValue('cards.ctaButton')?.enabled || false
+          }]
+        };
+      }
+    },
+    [CARDS_REMIX]: {
+      label: I18N.get('titleForRemix')
+    },
+    [SECTION_TITLE_REMIX]: {
+      targetedFields: [{
+        id: TITLE
+      }],
+      getProps(props) {
+        return {
+          to: props.getRoute(BASE)
+        };
+      }
+    },
+    [ROOT_REMIX_BUTTON]: {
+      getProps(props) {
+        return {
+          link: props.getRoute(ROOT_REMIX)
+        };
+      }
+    }
+  };
+
+  const defaultsOverride = {
+    [CARDS_IMAGE_DATA]: {
+      ...defaultProps[CARDS_IMAGE_DATA],
+      aspectRatio: 2
+    }
+  };
+  const routes = {
+    [BASE]: [ALIGNMENT, ROOT_REMIX_BUTTON, TITLE, CARDS, DELETE],
+    [ROOT_REMIX]: [SECTION_TITLE_REMIX],
+    [CARD]: [CARDS_REMIX_BUTTON, CARDS_HEADLINE, CARDS_DESC, CARD_MEDIA_PIVOT, CARD_CTA_PIVOT, CARD_DELETE],
+    [CARD_IMAGE]: [CARDS_MEDIA_TYPE, CARDS_IMAGE_DATA, CARDS_IMAGE_LINK],
+    [CARD_VIDEO]: [CARDS_MEDIA_TYPE, CARDS_VIDEO_CONTROL],
+    [CARD_CTA]: [CARDS_CTA],
+    [CARDS_REMIX]: [CARDS_REMIX_CONTENT]
+  };
+  function getMutator(getMutatorOverride) {
+    const override = getMutatorOverride({
+      routes,
+      routePaths,
+      widgetKeys
+    });
+    return (global.Core || guac["@wsb/guac-widget-core"]).Maniless.utils.createMutator({
+      ...defaultsOverride,
+      routes: {
+        ...routes,
+        ...override.routes
+      }
+    }, {
+      fields: {
+        ...mutatorFields,
+        ...override.mutatorFields
+      },
+      defaultProps: {
+        ...defaultProps,
+        ...override.defaultProps
+      }
+    });
+  }
+  var Mutator = (global.Core || guac["@wsb/guac-widget-core"]).Maniless.utils.createMutator({
+    ...defaultsOverride,
+    routes
+  }, {
+    fields: mutatorFields,
+    defaultProps
+  });
+
+  exports.C = CommonLayout;
+  exports.M = Mutator;
+  exports.a = hasVideo;
+  exports.b = getWidgetWithOverrides;
+  exports.c = config;
+  exports.d = cardsToProps;
+  exports.e = getMutator;
+  exports.g = getDataAids;
+  exports.h = hasImage;
+
+}));
+if (typeof window !== 'undefined') window.global = window;
