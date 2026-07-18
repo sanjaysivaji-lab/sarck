@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Adamina';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/l/font?kit=j8_r6-DH1bjoc-dwu-_GEHA9Vzbk&skey=fc252ad57fb072ab&v=v22) format('woff2');
+  unicode-range: U+41, U+44, U+49, U+4d-4e;
+}

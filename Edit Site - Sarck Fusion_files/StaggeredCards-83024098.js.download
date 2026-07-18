@@ -1,0 +1,200 @@
+define("@wsb/guac-widget-shared/lib/layouts/StaggeredCards-83024098.js", ['exports', "~/c/_rollupPluginBabelHelpers", "~/c/Mutator"], (function (exports, _rollupPluginBabelHelpers, Mutator) { 'use strict';
+
+  const {
+    getSelectedVideoProps
+  } = (global.Core || guac["@wsb/guac-widget-core"]).utils;
+  const {
+    Link
+  } = (global.Core || guac["@wsb/guac-widget-core"]).components;
+  const alignmentMapping = {
+    left: 'flex-start',
+    center: 'center',
+    right: 'flex-end'
+  };
+  class InfoCard extends (global.React || guac.react).Component {
+    render() {
+      const {
+        cardProps,
+        cardData,
+        alignmentOption,
+        cards = [],
+        dataAidPrefix
+      } = this.props;
+      const {
+        Grid,
+        Grid: {
+          Cell
+        }
+      } = (global.Core || guac["@wsb/guac-widget-core"]).UX2.Component;
+      const {
+        index,
+        image,
+        video
+      } = cardProps;
+      const {
+        imageData,
+        link,
+        ...imageCardProps
+      } = image || {};
+      const {
+        alt
+      } = imageData || {};
+      const altTextProp = alt && {
+        alt
+      };
+      const {
+        heightPx: outputHeight,
+        widthPx: outputWidth
+      } = Mutator.c.cards.common;
+      const hasImageData = Mutator.h(cardData, {
+        videoAllowed: true
+      });
+      const hasVideoData = Mutator.a(cardData, {
+        videoAllowed: true
+      });
+      const hasMediaData = hasImageData || hasVideoData;
+      const direction = index % 2 !== 0 && hasMediaData ? 'row-reverse' : 'row';
+      const dataAids = Mutator.g(dataAidPrefix);
+      const styles = {
+        img: {
+          height: 'auto',
+          maxWidth: '100%'
+        },
+        imgContainer: {
+          'marginBottom': 'medium',
+          'textAlign': 'center',
+          '@md': {
+            marginBottom: '0'
+          }
+        },
+        grid: {
+          flexDirection: direction,
+          justifyContent: alignmentMapping[alignmentOption]
+        },
+        cell: {
+          display: 'flex',
+          justifyContent: hasMediaData ? 'flex-start' : 'center',
+          alignItems: 'center'
+        }
+      };
+      const imgCol = hasImageData && /*#__PURE__*/(global.React || guac.react).createElement(Cell, {
+        xs: 12,
+        sm: cards.length === 2 ? 12 : 6,
+        md: 6,
+        style: {
+          alignSelf: 'flex-start',
+          justifyContent: 'center'
+        }
+      }, /*#__PURE__*/(global.React || guac.react).createElement((global.Core || guac["@wsb/guac-widget-core"]).UX2.Element.Block, {
+        style: styles.imgContainer
+      }, /*#__PURE__*/(global.React || guac.react).createElement(Link, {
+        linkData: link
+      }, /*#__PURE__*/(global.React || guac.react).createElement((global.Core || guac["@wsb/guac-widget-core"]).UX2.Element.Image, _rollupPluginBabelHelpers._({
+        tag: "img",
+        style: styles.img,
+        "data-aid": dataAids[`${dataAidPrefix}_IMAGE_RENDERED`] + index,
+        imageData: {
+          ...imageData,
+          outputHeight,
+          outputWidth
+        }
+      }, altTextProp, imageCardProps)))));
+      const videoCol = hasVideoData && /*#__PURE__*/(global.React || guac.react).createElement(Cell, {
+        xs: 12,
+        sm: cards.length === 2 ? 12 : 6,
+        md: 6,
+        style: {
+          alignSelf: 'flex-start',
+          justifyContent: 'center'
+        }
+      }, /*#__PURE__*/(global.React || guac.react).createElement((global.Core || guac["@wsb/guac-widget-core"]).UX2.Component.Video, _rollupPluginBabelHelpers._({
+        containerStyle: {
+          paddingBottom: '51.5%'
+        }
+      }, getSelectedVideoProps(video))));
+      const {
+        'data-field-id': dataFieldId,
+        'data-field-route': dataFieldRoute,
+        ...otherCardProps
+      } = cardProps;
+      return /*#__PURE__*/(global.React || guac.react).createElement(Grid, {
+        bottom: false,
+        style: styles.grid,
+        "data-field-id": dataFieldId,
+        "data-field-route": dataFieldRoute
+      }, imgCol, videoCol, /*#__PURE__*/(global.React || guac.react).createElement(Cell, {
+        xs: 12,
+        sm: cards.length === 2 ? 12 : 6,
+        md: 6,
+        style: styles.cell
+      }, /*#__PURE__*/(global.React || guac.react).createElement((global.Core || guac["@wsb/guac-widget-core"]).UX2.Component.ContentBasic, otherCardProps)));
+    }
+  }
+  InfoCard.propTypes = {
+    cardData: (global.PropTypes || guac["prop-types"]).object.isRequired,
+    cardProps: (global.PropTypes || guac["prop-types"]).object.isRequired,
+    alignmentOption: (global.PropTypes || guac["prop-types"]).string,
+    cards: (global.PropTypes || guac["prop-types"]).array,
+    dataAidPrefix: (global.PropTypes || guac["prop-types"]).string
+  };
+
+  const getWidget$1 = (overrides = {}) => {
+    var _StaggeredCardsComponent;
+    const Widget = Mutator.b(overrides);
+    return _StaggeredCardsComponent = class StaggeredCardsComponent extends Widget {
+      // eslint-disable-line no-undef
+
+      render() {
+        const {
+          cards,
+          alignmentOption,
+          enableInlineImageEdit,
+          enableImageDimension
+        } = this.props;
+        const dataAidPrefix = overrides && overrides.dataAidPrefix || '';
+        const cardProps = Mutator.d(cards, {
+          alignmentOption,
+          videoAllowed: true,
+          dataAidPrefix,
+          enableInlineImageEdit,
+          enableImageDimension
+        });
+        const {
+          Grid,
+          Grid: {
+            Cell
+          }
+        } = (global.Core || guac["@wsb/guac-widget-core"]).UX2.Component;
+        return /*#__PURE__*/(global.React || guac.react).createElement(Mutator.C, _rollupPluginBabelHelpers._({}, this.props, {
+          dataAidPrefix: dataAidPrefix
+        }), /*#__PURE__*/(global.React || guac.react).createElement(Grid, null, cardProps.map(card => /*#__PURE__*/(global.React || guac.react).createElement(Cell, {
+          xs: 12,
+          key: card.id,
+          style: {
+            '@xs': {
+              paddingBottom: 'xlarger'
+            }
+          }
+        }, /*#__PURE__*/(global.React || guac.react).createElement(InfoCard, _rollupPluginBabelHelpers._({}, this.props, {
+          cardProps: card,
+          cardData: cards[card.index],
+          dataAidPrefix: dataAidPrefix
+        }))))));
+      }
+    }, _rollupPluginBabelHelpers.a(_StaggeredCardsComponent, "displayName", overrides && overrides.displayName || 'About2'), _rollupPluginBabelHelpers.a(_StaggeredCardsComponent, "variantOf", overrides && overrides.variantOf || ''), _StaggeredCardsComponent;
+  };
+
+  const getWidget = (overrides = {}) => {
+    return getWidget$1(overrides);
+  };
+  const Widget = getWidget();
+
+  exports.Mutator = Mutator.M;
+  exports.getMutator = Mutator.e;
+  exports.Widget = Widget;
+  exports.getWidget = getWidget;
+
+  Object.defineProperty(exports, '__esModule', { value: true });
+
+}));
+if (typeof window !== 'undefined') window.global = window;

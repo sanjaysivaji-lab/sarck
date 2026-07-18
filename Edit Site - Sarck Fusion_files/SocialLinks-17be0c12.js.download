@@ -1,0 +1,116 @@
+define("@wsb/guac-widget-shared/lib/components/SocialLinks-17be0c12.js", ['exports', "~/c/_rollupPluginBabelHelpers"], (function (exports, _rollupPluginBabelHelpers) { 'use strict';
+
+  const {
+    socialProviders,
+    socialProviderKeys,
+    socialProviderTypes: {
+      XING
+    }
+  } = (global.Core || guac["@wsb/guac-widget-core"]).constants;
+  const SocialLinks = props => {
+    const {
+      dataAids,
+      baseProps,
+      iconProps,
+      showGrayIcons,
+      iconSuffix = '',
+      staticContent = {},
+      socialProvidersConfig = {},
+      showText = false
+    } = props;
+    const {
+      Block,
+      Link
+    } = (global.Core || guac["@wsb/guac-widget-core"]).UX2.Element;
+    const socialLinks = socialProviderKeys.map(social => {
+      const isEnabled = socialProvidersConfig[social];
+      const formattedIconRef = social === XING ? social.toUpperCase() : social.toLowerCase();
+      return {
+        name: socialProviders[social].name,
+        prefix: socialProviders[social].prefix,
+        profileId: props[social] || props[social + 'Profile'],
+        icon: formattedIconRef + iconSuffix,
+        dataAid: dataAids[social.toUpperCase()],
+        hidden: !isEnabled
+      };
+    }).filter(({
+      profileId
+    }) => profileId || showGrayIcons);
+    if (!socialLinks.length) {
+      return null;
+    }
+    const basePropsWithDefault = (global._ || guac.lodash).merge({
+      style: {
+        display: 'flex',
+        justifyContent: 'center',
+        paddingHorizontal: 'none',
+        paddingVertical: 'small',
+        flexWrap: 'wrap',
+        rowGap: !showText ? 0 : 'medium',
+        columnGap: !showText ? 0 : 'xxlarge'
+      }
+    }, baseProps);
+    const iconPropsWithDefault = (global._ || guac.lodash).merge({
+      size: 'medium'
+    }, iconProps);
+    const links = socialLinks.map((socialLink, index) => {
+      const socialIcon = /*#__PURE__*/(global.React || guac.react).createElement((global.Core || guac["@wsb/guac-widget-core"]).UX2.Element.Icon.Social, _rollupPluginBabelHelpers._({
+        key: index,
+        icon: socialLink.icon,
+        minTarget: true
+      }, iconPropsWithDefault));
+      const socialText = /*#__PURE__*/(global.React || guac.react).createElement((global.Core || guac["@wsb/guac-widget-core"]).UX2.Element.Heading.Middle, {
+        tag: "span",
+        key: index,
+        children: socialLink.name,
+        disabled: !!showGrayIcons
+      });
+      const socialContent = !showText ? socialIcon : socialText;
+      return showGrayIcons ? !socialLink.hidden && socialContent : /*#__PURE__*/(global.React || guac.react).createElement(Link, {
+        tag: "a",
+        href: socialLink.prefix + socialLink.profileId,
+        target: "_blank",
+        rel: "noopener",
+        key: index,
+        "data-aid": socialLink.dataAid,
+        children: socialContent,
+        "aria-label": staticContent[socialLink.name] || socialLink.name,
+        mobileIconSize: false,
+        style: {
+          '[data-typography]': {
+            color: 'inherit'
+          }
+        }
+      });
+    });
+    return /*#__PURE__*/(global.React || guac.react).createElement(Block, _rollupPluginBabelHelpers._({
+      "data-aid": dataAids.SOCIAL
+    }, basePropsWithDefault), links);
+  };
+  SocialLinks.propTypes = {
+    dataAids: (global.PropTypes || guac["prop-types"]).object.isRequired,
+    baseProps: (global.PropTypes || guac["prop-types"]).object,
+    iconProps: (global.PropTypes || guac["prop-types"]).object,
+    facebookProfile: (global.PropTypes || guac["prop-types"]).string,
+    twitterProfile: (global.PropTypes || guac["prop-types"]).string,
+    instagramProfile: (global.PropTypes || guac["prop-types"]).string,
+    pinterestProfile: (global.PropTypes || guac["prop-types"]).string,
+    linkedinProfile: (global.PropTypes || guac["prop-types"]).string,
+    youtubeProfile: (global.PropTypes || guac["prop-types"]).string,
+    xingProfile: (global.PropTypes || guac["prop-types"]).string,
+    discordProfile: (global.PropTypes || guac["prop-types"]).string,
+    twitchProfile: (global.PropTypes || guac["prop-types"]).string,
+    tiktokProfile: (global.PropTypes || guac["prop-types"]).string,
+    showGrayIcons: (global.PropTypes || guac["prop-types"]).bool,
+    iconSuffix: (global.PropTypes || guac["prop-types"]).string,
+    staticContent: (global.PropTypes || guac["prop-types"]).object,
+    socialProvidersConfig: (global.PropTypes || guac["prop-types"]).object,
+    showText: (global.PropTypes || guac["prop-types"]).bool
+  };
+
+  exports["default"] = SocialLinks;
+
+  Object.defineProperty(exports, '__esModule', { value: true });
+
+}));
+if (typeof window !== 'undefined') window.global = window;

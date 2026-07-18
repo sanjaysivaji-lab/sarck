@@ -1,0 +1,38 @@
+define("@wsb/guac-widget-shared/lib/common/constants/traffic2-8b152a1a.js", ['exports'], (function (exports) { 'use strict';
+
+  /* eslint id-length:0 */
+
+  const click = 'click';
+  const TRAFFIC_PREFIX = 'pandc.vnext';
+  var trafficEvents = replaceValuesWithLongDottedStrings(TRAFFIC_PREFIX, {
+    editor_preview: {
+      submit_contact_form: click,
+      messaging_fab_open: click,
+      messaging_fab_close: click,
+      messaging_webApp_appstore: click,
+      conversations_learn_more: click
+    },
+    shop_widget: {
+      click_pagination_back_arrow: click,
+      click_pagination_forward_arrow: click,
+      click_pagination_number: click
+    }
+  });
+
+  // input format  :: eventMap.category.action = 'label';
+  // output format :: eventMap.category.action = 'prefix.category.action.label';
+  function replaceValuesWithLongDottedStrings(prefix, eventMap) {
+    return (global._ || guac.lodash).mapValues(eventMap, (categoryValue, categoryKey) => {
+      return (global._ || guac.lodash).mapValues(categoryValue, (label, action) => {
+        return [prefix, categoryKey, action, label].join('.');
+      });
+    });
+  }
+
+  exports.TRAFFIC_PREFIX = TRAFFIC_PREFIX;
+  exports["default"] = trafficEvents;
+
+  Object.defineProperty(exports, '__esModule', { value: true });
+
+}));
+if (typeof window !== 'undefined') window.global = window;

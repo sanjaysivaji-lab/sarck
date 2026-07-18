@@ -1,0 +1,2 @@
+define("@widget/LAYOUT/c/video-3df4d87b.js",["exports","~/c/Layout"],(function(e,i){"use strict";e.g=function({videoType:e,videoEmbed:o={},background:d={},videoCover:n}){const{video:t}=d,v=t||n||{},c=e===i.E?o.width:v.width,r=e===i.E?o.height:v.height;return{videoWidth:c,videoHeight:r,isVerticalVideo:!!r&&!!c&&r>c}},e.h=function({background:e,videoEmbed:o,videoType:d,mediaType:n}){return n===i.V&&(d===i.E?Boolean(o?.vimeoId):Boolean(e?.video))}})),"undefined"!=typeof window&&(window.global=window);
+//# sourceMappingURL=video-3df4d87b.js.map
