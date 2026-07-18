@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/l/font?kit=4iCs6KVjbNBYlgo6fRz24i7mY_E&skey=7e59fc036a1a8481&v=v21) format('woff2');
+  unicode-range: U+55, U+62, U+6e, U+74-75;
+}

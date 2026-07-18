@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'Josefin Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/l/font?kit=Qw3PZQNVED7rKGKxtqIqX5E-AVSJrOCfjY46_DjQXMRzICynCj2xdvvZMYw&skey=22ddf758bcf1d5cd&v=v34) format('woff2');
+  unicode-range: U+20, U+4a, U+53, U+61, U+65-66, U+69, U+6e-6f, U+73;
+}

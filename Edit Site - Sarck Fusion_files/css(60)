@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  src: url(https://fonts.gstatic.com/l/font?kit=o-0mIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjcz6L1SoM-jCpoiyD9A99Y-1_SgzA4oNzdgg&skey=2b960fe17823056f&v=v42) format('woff2');
+  unicode-range: U+20, U+4e, U+53, U+61, U+6e-6f, U+73-74;
+}

@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Sofia';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/l/font?kit=8QIHdirahM3j_vu7qo13ztaMdw&skey=6580f885f12e165d&v=v15) format('woff2');
+  unicode-range: U+53, U+61, U+66, U+69, U+6f;
+}

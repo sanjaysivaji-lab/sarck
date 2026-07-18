@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 100;
+  src: url(https://fonts.gstatic.com/l/font?kit=S6u8w4BMUTPHh30wXj2rUEaHmQ&skey=cfa1ba7b04a1ba34&v=v25) format('woff2');
+  unicode-range: U+4c, U+61, U+6f, U+74;
+}

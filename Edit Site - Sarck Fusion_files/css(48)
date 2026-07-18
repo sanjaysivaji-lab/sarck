@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/l/font?kit=TK3_WkUHHAIjg75cFRf3bXL8LICs1xZogURwZk_Uwm_UVg&skey=653237e53512d0de&v=v57) format('woff2');
+  unicode-range: U+41, U+44, U+4c, U+4f, U+53, U+57;
+}

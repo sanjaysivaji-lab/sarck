@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Pompiere';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/l/font?kit=VEMyRoxis5Dwuyeov6Wo_jKg5bbF6Bo&skey=367aa6846743b787&v=v21) format('woff2');
+  unicode-range: U+45, U+49, U+4d, U+4f-50, U+52;
+}

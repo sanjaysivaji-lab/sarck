@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Kaushan Script';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/l/font?kit=vm8vdRfvXFLG3OLnsO15WYS5DF760tpfecR69P-QZ1qiaC5B&skey=31e8905c8b129a4e&v=v19) format('woff2');
+  unicode-range: U+20, U+4b, U+53, U+61, U+63, U+68-69, U+6e, U+70, U+72-75;
+}

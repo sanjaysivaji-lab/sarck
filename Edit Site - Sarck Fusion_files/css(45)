@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Muli';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/l/font?kit=7Aulp_0qiz-aVz7u3PJLcUMYOFnOkHk1w-n4rxz2&skey=2b55aa3f2f059b75&v=v34) format('woff2');
+  unicode-range: U+4d, U+69, U+6c, U+75;
+}

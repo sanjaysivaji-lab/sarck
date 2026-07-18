@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Righteous';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/l/font?kit=1cXxaUPXBpj2rGoU7C9mimOJxIfknK1U8sRZ&skey=7d7e8613ba1b398f&v=v18) format('woff2');
+  unicode-range: U+45, U+47-49, U+4f, U+52-55;
+}

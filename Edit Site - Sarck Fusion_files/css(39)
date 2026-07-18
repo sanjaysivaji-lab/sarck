@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Lobster Two';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/l/font?kit=BngMUXZGTXPUvIoyV6yN59fP9KfNg33tCYuc&skey=9608b5afa19726d9&v=v22) format('woff2');
+  unicode-range: U+4c, U+62, U+65, U+6f, U+72-74;
+}

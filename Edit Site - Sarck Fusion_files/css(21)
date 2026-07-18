@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/l/font?kit=6xK-dSZaM9iE8KbpRA_LJ3z8mH9BOJvgkP8o18SszkdUO1n_fYAuAw&skey=c01f11fa5439d932&v=v37) format('woff2');
+  unicode-range: U+51, U+61, U+63-64, U+69, U+6b, U+6e, U+73, U+75;
+}

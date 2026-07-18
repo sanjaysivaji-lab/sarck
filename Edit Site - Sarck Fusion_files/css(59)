@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Sanchez';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/l/font?kit=Ycm2sZJORluHnXbITmtD_0dkrTmQ_FI&skey=64b13ed5b348e87e&v=v17) format('woff2');
+  unicode-range: U+53, U+61, U+63, U+65, U+68, U+6e, U+7a;
+}

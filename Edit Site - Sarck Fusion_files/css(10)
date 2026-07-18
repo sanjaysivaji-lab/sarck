@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Bitter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/l/font?kit=raxhHiqOu8IVPmnRc6SY1KXhnF_Y8RHYCLrcXRIS3Jbd&skey=c92268a3e57ee309&v=v42) format('woff2');
+  unicode-range: U+42, U+65, U+69, U+72, U+74;
+}

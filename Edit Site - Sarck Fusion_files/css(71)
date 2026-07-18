@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Yellowtail';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/l/font?kit=OZpGg_pnoDtINPfRIlLotlnVzBGeEuCx1gJj&skey=22fa7c6bface696b&v=v25) format('woff2');
+  unicode-range: U+59, U+61, U+65, U+69, U+6c, U+6f, U+74, U+77;
+}

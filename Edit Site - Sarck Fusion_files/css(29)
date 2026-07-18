@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Italiana';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/l/font?kit=QldNNTtLsx4E__B0XTmUe38Xp8QCqY0&skey=89d51c815117a263&v=v21) format('woff2');
+  unicode-range: U+49, U+61, U+69, U+6c, U+6e, U+74;
+}

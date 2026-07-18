@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Damion';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/l/font?kit=hv-XlzJ3KEUe_YZUaH41fVEROoQQ&skey=cab2b817d665dc28&v=v15) format('woff2');
+  unicode-range: U+44, U+61, U+69, U+6d-6f;
+}

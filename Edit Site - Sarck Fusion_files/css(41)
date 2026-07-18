@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-weight: 900;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/l/font?kit=u-4D0qyriQwlOrhSvowK_l5UcA6zuSYEqOzpPe3HOZJ5eX1WtLaQwmYiScCmDxhtNOKl8yDrdyAqFk_4b5W3CN62Dgs&skey=379c1eccf863c625&v=v33) format('woff2');
+  unicode-range: U+4d, U+61, U+65, U+68-69, U+72, U+74, U+77;
+}

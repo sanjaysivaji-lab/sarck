@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  src: url(https://fonts.gstatic.com/l/font?kit=JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w7e3cZwt_WV8u4ww&skey=7bc19f711c0de8f&v=v31) format('woff2');
+  unicode-range: U+4d, U+61, U+65, U+6e-6f, U+72-74;
+}

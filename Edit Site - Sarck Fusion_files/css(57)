@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Sacramento';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/l/font?kit=buEzpo6gcdjy0EiZMBUG0C8N8YcrAUhNHOE7Rg&skey=81ec871a4d9062d2&v=v17) format('woff2');
+  unicode-range: U+53, U+61, U+63, U+65, U+6d-6f, U+72, U+74;
+}
