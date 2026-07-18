@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'Helsinki';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Helsinki'), url(https://img1.wsimg.com/blobby/go/font/Helsinki/Helsinki.woff2) format('woff2'), url(https://img1.wsimg.com/blobby/go/font/Helsinki/Helsinki.woff) format('woff');
+}
